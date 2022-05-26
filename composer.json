@@ -1,0 +1,14 @@
+{
+    "name": "vendor/telegram-calls",
+    "description": "Llamadas via Telegram con la libreria MadelineProto",
+    "type": "project",
+    "authors": [
+        {
+            "name": "taixmiguel",
+            "email": "taixmiguel@email.es"
+        }
+    ],
+    "require": {
+        "danog/madelineproto": "^7"
+    }
+}
