@@ -31,11 +31,12 @@ jobs:
           tags: omikel8/telegram_call_php:latest
           platforms: linux/amd64,linux/arm64
 
+      - name: Establezco la nueva versión
+        run: echo "VERSION_TAGS=$(git rev-list --count main)" >> $GITHUB_ENV
+
       - name: Build and push (version)
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: omikel8/telegram_call_php:$versionTags
+          tags: omikel8/telegram_call_php:${{ env.VERSION_TAGS }}
           platforms: linux/amd64,linux/arm64
-        env:
-          versionTags: $(git rev-list --count main)
