@@ -33,8 +33,10 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: omikel8/telegram_call_php:$VERSION_TAGS
+          tags: $VERSION_TEST
           platforms: linux/amd64,linux/arm64
+        env:
+          VERSION_TEST: omikel8/telegram_call_php:1
 
       - name: Build and push (latest)
         uses: docker/build-push-action@v3
