@@ -24,10 +24,18 @@ jobs:
           username: omikel8
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push (latest)
         uses: docker/build-push-action@v3
         with:
           push: true
           tags: omikel8/telegram_call_php:latest
           platforms: linux/amd64,linux/arm64
-          #,linux/arm/v7
+
+      - name: Build and push (version)
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: omikel8/telegram_call_php:$versionTags
+          platforms: linux/amd64,linux/arm64
+        env:
+          versionTags: $(git rev-list --count main)
