@@ -24,19 +24,23 @@ jobs:
           username: omikel8
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Establezco la nueva versión
+        run: echo "VERSION_TAGS=$(git rev-list --count main)" >> $GITHUB_ENV
+      - name: Test
+        run: echo ${{ env.VERSION_TAGS }}
+
+      - name: Build and push (versión $VERSION_TAGS)
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: omikel8/telegram_call_php:$VERSION_TAGS
+          platforms: linux/amd64,linux/arm64
+          env:
+            VERSION_TAGS: $(git rev-list --count main)
+
       - name: Build and push (latest)
         uses: docker/build-push-action@v3
         with:
           push: true
           tags: omikel8/telegram_call_php:latest
-          platforms: linux/amd64,linux/arm64
-
-      - name: Establezco la nueva versión
-        run: echo "VERSION_TAGS=$(git rev-list --count main)" >> $GITHUB_ENV
-
-      - name: Build and push (version)
-        uses: docker/build-push-action@v3
-        with:
-          push: true
-          tags: omikel8/telegram_call_php:${{ env.VERSION_TAGS }}
           platforms: linux/amd64,linux/arm64
