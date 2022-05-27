@@ -1,9 +1,7 @@
 {
     "name": "taixmiguel/telegram-calls",
     "description": "Llamadas via Telegram con la libreria MadelineProto",
-    "version": "0.0.0-alpha",
     "type": "project",
-    "time": "2022-05-06",
     "license": "GPL-3.0-or-later",
     "authors": [
         {
