@@ -1,0 +1,28 @@
+name: Docker image CI
+
+on:
+  push:
+    branches: [ dev ]
+
+env:
+  IMAGE_NAME: omikel8/telegram_call_php
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Iniciar sesión en DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: omikel8
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Construcción de la imagen (latest)
+        run: |
+          docker buildx build --push \
+            --tag $IMAGE_NAME:latest \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 .
