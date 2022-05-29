@@ -2,7 +2,7 @@
 
 require_once 'vendor/autoload.php';
 
-$string = file_get_contents("src/config.json");
+$string = file_get_contents("resources/config.json");
 $json = json_decode($string, true);
 
 $settings = [
@@ -20,4 +20,4 @@ $settings = [
 ];
 
 $userName = $_GET["user"];
-$MadelineProto = new \danog\MadelineProto\API($userName . '_session.madeline', $settings);
+$MadelineProto = new \danog\MadelineProto\API('resources/' . $userName . '_session.madeline', $settings);
