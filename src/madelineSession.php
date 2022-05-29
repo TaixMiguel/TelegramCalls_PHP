@@ -1,9 +1,16 @@
 <?php
 
-require_once 'vendor/autoload.php';
-
 $string = file_get_contents("resources/config.json");
 $json = json_decode($string, true);
+
+$multiuser = isset($json['settings']["multiuser"]) ? $json['settings']["multiuser"] : false;
+
+if ($multiuser && empty($_GET["user"])) {
+    echo 'No se indica el parámetro <b>user</b>';
+    exit(0);
+}
+
+require_once 'vendor/autoload.php';
 
 $settings = [
     'logger' => [
@@ -20,4 +27,5 @@ $settings = [
 ];
 
 $userName = $_GET["user"];
-$MadelineProto = new \danog\MadelineProto\API('resources/' . $userName . '_session.madeline', $settings);
+$sessionFile = $multiuser ? 'resources/' . $userName . '_session.madeline' : 'resources/session.madeline';
+$MadelineProto = new \danog\MadelineProto\API($sessionFile, $settings);
